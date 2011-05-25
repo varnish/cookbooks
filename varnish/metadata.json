@@ -28,7 +28,7 @@
 
   },
   "attributes": {
-    "varnish\/version": {
+    "varnish/version": {
       "default": "2.1",
       "type": "string",
       "multiple_values": false,
