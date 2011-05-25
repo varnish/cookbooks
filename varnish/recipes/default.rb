@@ -21,17 +21,38 @@
 
 directory "/var/cache/chef"
 
-remote_file "/var/cache/chef/varnish-release-2.1.-2.noarch.rpm" do
-  source "http://repo.varnish-cache.org/redhat/el5/noarch/varnish-release-2.1-2.noarch.rpm"
-end
+if node[:platform] == "centos"
+  s = "http://repo.varnish-cache.org/redhat/el5/noarch/varnish-release-2.1-2.noarch.rpm"
+  p = "/var/cache/chef/varnish-release-2.1-2.noarch.rpm"
 
-package "varnish-release" do
-  provider Chef::Provider::Package::Rpm
-  options "--nosignature"
-  source "/var/cache/chef/varnish-release-2.1.-2.noarch.rpm"
-end
+  remote_file p do
+    source s
+  end
 
-package "varnish"
+  package "varnish-release" do
+    provider Chef::Provider::Package::Rpm
+    options "--nosignature"
+    source p
+  end
+elsif node[:platform] in ["debian", "ubuntu"]
+
+  a = cookbook_file "/etc/apt/trusted.gpg.d/Varnish.gpg" do
+    mode "0644"
+  end
+
+  b = template "/etc/apt/sources.list.d/varnish-cache.list" do
+    mode "0644"
+    variables ({
+                 :version => node[:varnish][:version],
+                 :platform => node[:platform]
+               })
+  end
+
+  a.run_action(:create)
+  b.run_action(:create)
+
+  package "varnish"
+end
 
 return
 template "#{node[:varnish][:dir]}default.vcl" do
