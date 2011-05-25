@@ -28,7 +28,17 @@
 
   },
   "attributes": {
-
+    "varnish\/version": {
+      "default": "2.1",
+      "type": "string",
+      "multiple_values": false,
+      "description": "Version of Varnish to install",
+      "display_name": "Varnish version",
+      "recipes": [
+      "varnish::default"
+      ],
+      "required": false
+    },
   },
   "providing": {
     "varnish": [
