@@ -1,10 +1,10 @@
 {
-  "maintainer": "Opscode, Inc.",
-  "description": "Instsalls and configures varnish",
+  "maintainer": "Varnish Software",
+  "description": "Installs and configures varnish",
   "recommendations": {
 
   },
-  "maintainer_email": "cookbooks@opscode.com",
+  "maintainer_email": "tfheen@varnish-software.com",
   "recipes": {
     "varnish": ""
   },
@@ -16,6 +16,9 @@
 
     ],
     "debian": [
+
+    ],
+    "centos": [
 
     ]
   },
