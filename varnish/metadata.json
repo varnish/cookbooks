@@ -38,7 +38,7 @@
       "varnish::default"
       ],
       "required": false
-    },
+    }
   },
   "providing": {
     "varnish": [
