@@ -21,7 +21,7 @@
 
 directory "/var/cache/chef"
 
-if node[:platform] == "centos"
+if ["centos"].include?(node[:platform])
   s = "http://repo.varnish-cache.org/redhat/el5/noarch/varnish-release-2.1-2.noarch.rpm"
   p = "/var/cache/chef/varnish-release-2.1-2.noarch.rpm"
 
@@ -34,7 +34,7 @@ if node[:platform] == "centos"
     options "--nosignature"
     source p
   end
-elsif node[:platform] in ["debian", "ubuntu"]
+elsif ["debian", "ubuntu"].include?(node[:platform])
 
   a = cookbook_file "/etc/apt/trusted.gpg.d/Varnish.gpg" do
     mode "0644"
@@ -74,14 +74,14 @@ template "#{node[:varnish][:default]}" do
   mode 0644
   variables({
               :vcl => #{node[:varnish][:dir]}default.vcl,
-              :address => node[:varnish][:listen_addresss]
-              :port => node[:varnish][:listen_port]
-              :admin_address => node[:varnish][:admin_address]
-              :admin_port => node[:varnish][:admin_port]
-              :min_threads => node[:varnish][:min_threads]
-              :max_threads => node[:varnish][:max_threads]
-              :storage => node[:varnish][:storage_spec]
-              :secret_file => "/etc/varnish/secret"
+              :address => node[:varnish][:listen_address],
+              :port => node[:varnish][:listen_port],
+              :admin_address => node[:varnish][:admin_address],
+              :admin_port => node[:varnish][:admin_port],
+              :min_threads => node[:varnish][:min_threads],
+              :max_threads => node[:varnish][:max_threads],
+              :storage => node[:varnish][:storage_spec],
+              :secret_file => "/etc/varnish/secret",
               :extra_parameters => node[:varnish][:parameters]
             })
   notifies :restart, resources(:service => "pglistener")
