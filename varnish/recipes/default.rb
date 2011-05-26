@@ -45,6 +45,7 @@ elsif ["debian", "ubuntu"].include?(node[:platform])
     variables ({
                  :version => node[:varnish][:version],
                  :platform => node[:platform]
+                 :codename => node[:lsb][:codename]
                })
   end
 
