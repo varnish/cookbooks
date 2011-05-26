@@ -14,8 +14,7 @@ attribute 'varnish/version',
 :choice => [ '2.1', '3.0' ],
 :type => "string",
 :required => "required",
-:recipes => [ 'varnish::default' ],
-:default => "2.1"
+:recipes => [ 'varnish::default' ]
 
 attribute 'varnish/listen_address',
 :display_name => "Address to listen on for HTTP traffic",
@@ -53,7 +52,7 @@ attribute 'varnish/min_threads',
 :display_name => "Minimum number of threads",
 :description => "The minimum number of threads Varnish should run with",
 :type => "string",
-:required => "required",
+:required => "recommended",
 :recipes => [ 'varnish::default' ],
 :default => "10"
 
@@ -61,7 +60,7 @@ attribute 'varnish/max_threads',
 :display_name => "Maximum number of threads",
 :description => "The minimum number of threads Varnish should use",
 :type => "string",
-:required => "required",
+:required => "recommended",
 :recipes => [ 'varnish::default' ],
 :default => "1000"
 
@@ -69,7 +68,7 @@ attribute 'varnish/storage_spec',
 :display_name => "Storage specification",
 :description => "What storage and sizing information",
 :type => "string",
-:required => "required",
+:required => "recommended",
 :recipes => [ 'varnish::default' ],
 :default => "-smalloc,6G"
 
@@ -78,8 +77,7 @@ attribute 'varnish/secret',
 :description => "This is a random string used for authenticating with Varnish",
 :type => "string",
 :required => "required",
-:recipes => [ 'varnish::default' ],
-:default => ""
+:recipes => [ 'varnish::default' ]
 
 attribute 'varnish/parameters',
 :display_name => "Extra  parameters",
