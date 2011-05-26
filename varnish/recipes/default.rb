@@ -25,15 +25,22 @@ if ["centos"].include?(node[:platform])
   s = "http://repo.varnish-cache.org/redhat/el5/noarch/varnish-release-2.1-2.noarch.rpm"
   p = "/var/cache/chef/varnish-release-2.1-2.noarch.rpm"
 
-  remote_file p do
+  a = remote_file p do
     source s
   end
 
-  package "varnish-release" do
+  b = package "varnish-release" do
     provider Chef::Provider::Package::Rpm
     options "--nosignature"
     source p
   end
+
+  c = package "varnish"
+
+  a.run_action(:create)
+  b.run_action(:upgrade)
+  c.run_action(:upgrade)
+
 elsif ["debian", "ubuntu"].include?(node[:platform])
 
   a = remote_file "/etc/apt/trusted.gpg.d/Varnish.gpg" do
