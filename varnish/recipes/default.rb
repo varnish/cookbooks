@@ -36,7 +36,7 @@ if ["centos"].include?(node[:platform])
   end
 elsif ["debian", "ubuntu"].include?(node[:platform])
 
-  a = cookbook_file "/etc/apt/trusted.gpg.d/Varnish.gpg" do
+  a = remote_file "/etc/apt/trusted.gpg.d/Varnish.gpg" do
     mode "0644"
   end
 
