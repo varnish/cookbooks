@@ -74,7 +74,7 @@
       "choice": [
 
       ],
-      "default": "-smalloc,6G",
+      "default": "malloc,6G",
       "type": "string",
       "recipes": [
         "varnish::default"
