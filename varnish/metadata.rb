@@ -8,6 +8,9 @@ version           "0.7"
   supports os
 end
 
+provides "varnish::default"
+recipe "varnish::default", "Install and configure Varnish Cache"
+
 attribute 'varnish/version',
 :display_name => "Varnish version",
 :description => "What version of Varnish to install",

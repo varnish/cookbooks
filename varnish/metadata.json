@@ -3,6 +3,7 @@
   },
   "long_description": "",
   "providing": {
+    "varnish::default": ">= 0.0.0"
   },
   "maintainer": "Varnish Software",
   "replacing": {
@@ -18,6 +19,7 @@
   "groupings": {
   },
   "recipes": {
+    "varnish::default": "Install and configure Varnish Cache"
   },
   "recommendations": {
   },
