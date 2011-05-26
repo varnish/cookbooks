@@ -84,7 +84,7 @@ template "#{node[:varnish][:default]}" do
               :secret_file => "/etc/varnish/secret",
               :extra_parameters => node[:varnish][:parameters]
             })
-  notifies :restart, resources(:service => "pglistener")
+  notifies :restart, resources(:service => "varnish")
 end
 
 #template "#{node[:varnish][:dir]}default.vcl" do
