@@ -1,0 +1,60 @@
+# Configuration file for varnish
+#
+# /etc/init.d/varnish expects the variable $DAEMON_OPTS to be set from this
+# shell script fragment.
+#
+
+# Maximum number of open files (for ulimit -n)
+NFILES=131072
+
+# Default varnish instance name is the local nodename.  Can be overridden with
+# the -n switch, to have more instances on a single server.
+INSTANCE=$(uname -n)
+
+# See varnishd(1) for more information.
+#
+# # Main configuration file. You probably want to change it :)
+VARNISH_VCL_CONF=<%= @vcl %>
+#
+# # Default address and port to bind to
+# # Blank address means all IPv4 and IPv6 interfaces, otherwise specify
+# # a host name, an IPv4 dotted quad, or an IPv6 address in brackets.
+VARNISH_LISTEN_ADDRESS=<%= @address %>
+VARNISH_LISTEN_PORT=<%= @port %>
+#
+# # Telnet admin interface listen address and port
+VARNISH_ADMIN_LISTEN_ADDRESS=<%= @admin_address %>
+VARNISH_ADMIN_LISTEN_PORT=<%= @admin_port %>
+#
+# # The minimum number of worker threads to start
+VARNISH_MIN_THREADS=<%= @min_threads %>
+
+# # The Maximum number of worker threads to start
+VARNISH_MAX_THREADS=<%= @max_threads %>
+#
+# # Idle timeout for worker threads
+# VARNISH_THREAD_TIMEOUT=120
+#
+# # Cache file location
+# VARNISH_STORAGE_FILE=/var/lib/varnish/$INSTANCE/varnish_storage.bin
+#
+# # Cache file size: in bytes, optionally using k / M / G / T suffix,
+# # or in percentage of available disk space using the % suffix.
+# VARNISH_STORAGE_SIZE=1G
+#
+# # Backend storage specification
+VARNISH_STORAGE="<%= @storage %>"
+#
+# # Default TTL used when the backend does not specify one
+# VARNISH_TTL=120
+#
+# # DAEMON_OPTS is used by the init script.  If you add or remove options, make
+# # sure you update this section, too.
+DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
+              -f ${VARNISH_VCL_CONF} \
+              -T ${VARNISH_ADMIN_LISTEN_ADDRESS}:${VARNISH_ADMIN_LISTEN_PORT} \
+              -t ${VARNISH_TTL} \
+              -w ${VARNISH_MIN_THREADS},${VARNISH_MAX_THREADS},${VARNISH_THREAD_TIMEOUT} \
+              -s ${VARNISH_STORAGE} \
+	      -S <%= @secret_file %> \
+	      <%= @extra_parameters %>"

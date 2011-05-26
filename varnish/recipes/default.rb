@@ -52,29 +52,50 @@ elsif node[:platform] in ["debian", "ubuntu"]
   b.run_action(:create)
 
   package "varnish"
-end
 
-return
-template "#{node[:varnish][:dir]}default.vcl" do
-  source "default.vcl.erb"
-  owner "root"
-  group "root"
-  mode 0644
-end
-
-template "#{node[:varnish][:default]}" do
-  source "ubuntu-default.erb"
-  owner "root"
-  group "root"
-  mode 0644
 end
 
 service "varnish" do
   supports :restart => true, :reload => true
-  action [ :enable, :start ]
+  action [ :enable  ]
 end
 
-service "varnishlog" do
-  supports :restart => true, :reload => true
-  action [ :enable, :start ]
+file "/etc/varnish/secret" do
+  owner "root"
+  group "root"
+  mode "0600"
+  content node[:varnish][:secret]
 end
+
+template "#{node[:varnish][:default]}" do
+  source "varnish-sysconfig.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  variables({
+              :vcl => #{node[:varnish][:dir]}default.vcl,
+              :address => node[:varnish][:listen_addresss]
+              :port => node[:varnish][:listen_port]
+              :admin_address => node[:varnish][:admin_address]
+              :admin_port => node[:varnish][:admin_port]
+              :min_threads => node[:varnish][:min_threads]
+              :max_threads => node[:varnish][:max_threads]
+              :storage => node[:varnish][:storage_spec]
+              :secret_file => "/etc/varnish/secret"
+              :extra_parameters => node[:varnish][:parameters]
+            })
+  notifies :restart, resources(:service => "pglistener")
+end
+
+#template "#{node[:varnish][:dir]}default.vcl" do
+#  source "default.vcl.erb"
+#  owner "root"
+#  group "root"
+#  mode 0644
+#end
+
+
+#service "varnishlog" do
+#  supports :restart => true, :reload => true
+#  action [ :enable, :start ]
+#end
