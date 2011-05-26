@@ -38,7 +38,7 @@ if ["centos"].include?(node[:platform])
   c = package "varnish"
 
   a.run_action(:create)
-  b.run_action(:upgrade)
+  b.run_action(:install)
   c.run_action(:upgrade)
 
 elsif ["debian", "ubuntu"].include?(node[:platform])
