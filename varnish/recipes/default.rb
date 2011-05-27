@@ -81,7 +81,7 @@ template "#{node[:varnish][:default]}" do
   group "root"
   mode 0644
   variables({
-              :vcl => "#{node[:varnish][:dir]}default.vcl",
+              :vcl => "#{node[:varnish][:dir]}/default.vcl",
               :address => node[:varnish][:listen_address],
               :port => node[:varnish][:listen_port],
               :admin_address => node[:varnish][:admin_address],
