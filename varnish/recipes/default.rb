@@ -101,8 +101,8 @@ if not node[:varnish][:remote_vcl].empty?
     owner "root"
     group "root"
     mode 0644
+    notifies :restart, resources(:service => "varnish")
   end
-  notifies :restart, resources(:service => "varnish")
 end
 
 #service "varnishlog" do
