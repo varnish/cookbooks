@@ -17,4 +17,4 @@ default[:varnish][:admin_port] = "6082"
 default[:varnish][:min_threads] = "10"
 default[:varnish][:max_threads] = "1000"
 default[:varnish][:storage_spec] = "malloc,6G"
-
+default[:varnish][:remote_vcl] = ""

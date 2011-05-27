@@ -138,6 +138,20 @@
       "description": "What address Varnish should listen on for administrative connections. Blank means all IP addresses",
       "display_name": "Administrative interface address"
     },
+    "varnish/remote_vcl": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "",
+      "type": "string",
+      "recipes": [
+        "varnish::default"
+      ],
+      "description": "Where to fetch the VCL from.",
+      "display_name": "VCL URL"
+    },
     "varnish/secret": {
       "required": "required",
       "calculated": false,

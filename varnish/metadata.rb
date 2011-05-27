@@ -90,3 +90,10 @@ attribute 'varnish/parameters',
 :recipes => [ 'varnish::default' ],
 :default => ""
 
+attribute 'varnish/remote_vcl',
+:display_name => "VCL URL",
+:description => "Where to fetch the VCL from.",
+:type => "string",
+:required => "optional",
+:recipes => [ 'varnish::default' ],
+:default => ""

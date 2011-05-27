@@ -95,13 +95,15 @@ template "#{node[:varnish][:default]}" do
   notifies :restart, resources(:service => "varnish")
 end
 
-#template "#{node[:varnish][:dir]}default.vcl" do
-#  source "default.vcl.erb"
-#  owner "root"
-#  group "root"
-#  mode 0644
-#end
-
+if not node[:varnish][:remote_vcl].empty?
+  remote_file "#{node[:varnish][:dir]}/default.vcl" do
+    source node[:varnish][:remote_vcl]
+    owner "root"
+    group "root"
+    mode 0644
+  end
+  notifies :restart, resources(:service => "varnish")
+end
 
 #service "varnishlog" do
 #  supports :restart => true, :reload => true
