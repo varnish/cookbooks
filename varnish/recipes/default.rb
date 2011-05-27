@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-directory "/var/cache/chef"
-
 if ["centos"].include?(node[:platform])
   s = "http://repo.varnish-cache.org/redhat/el5/noarch/varnish-release-2.1-2.noarch.rpm"
   p = "/var/cache/chef/varnish-release-2.1-2.noarch.rpm"
