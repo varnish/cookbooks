@@ -25,6 +25,9 @@ if ["centos"].include?(node[:platform])
   s = "http://repo.varnish-cache.org/redhat/el5/noarch/varnish-release-2.1-2.noarch.rpm"
   p = "/var/cache/chef/varnish-release-2.1-2.noarch.rpm"
 
+  d = directory "/var/cache/chef"
+  d.run_action(:create)
+
   a = remote_file p do
     source s
   end
