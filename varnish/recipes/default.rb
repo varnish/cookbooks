@@ -20,9 +20,11 @@
 #
 
 if ["centos"].include?(node[:platform])
-  s = "http://repo.varnish-cache.org/redhat" + case node[:varnish][:version]
-        when "2.1" then "/varnish-2.1/el5/noarch/varnish-release-2.1-2.noarch.rpm"
-        when "3.0" then "/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm"
+  s = "http://repo.varnish-cache.org/redhat" + 
+    case node[:varnish][:version]
+    when "2.1" then "/varnish-2.1/el5/noarch/varnish-release-2.1-2.noarch.rpm"
+    when "3.0" then "/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm"
+    end
   p = "/var/cache/chef/varnish-release.noarch.rpm"
 
   d = directory "/var/cache/chef"
