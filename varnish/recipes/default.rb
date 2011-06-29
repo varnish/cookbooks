@@ -106,6 +106,10 @@ if not node[:varnish][:remote_vcl].empty?
     mode 0644
     notifies :restart, resources(:service => "varnish")
   end
+
+  file "/var/lib/varnish/vcl_url" do
+    content node[:varnish][:remote_vcl]
+  end
 end
 
 #service "varnishlog" do
