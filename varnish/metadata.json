@@ -109,7 +109,7 @@
       ],
       "description": "What version of Varnish to install",
       "display_name": "Varnish version",
-      "default": "3.0",
+      "default": "3.0"
     },
     "varnish/listen_port": {
       "required": "optional",
