@@ -16,7 +16,6 @@ attribute 'varnish/version',
 :description => "What version of Varnish to install",
 :choice => [ '2.1', '3.0' ],
 :type => "string",
-:required => "required",
 :recipes => [ 'varnish::default' ],
 :default => "3.0"
 

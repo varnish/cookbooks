@@ -97,7 +97,6 @@
       "display_name": "Extra  parameters"
     },
     "varnish/version": {
-      "required": "required",
       "calculated": false,
       "choice": [
         "2.1",
