@@ -17,7 +17,8 @@ attribute 'varnish/version',
 :choice => [ '2.1', '3.0' ],
 :type => "string",
 :required => "required",
-:recipes => [ 'varnish::default' ]
+:recipes => [ 'varnish::default' ],
+:default => "3.0"
 
 attribute 'varnish/listen_address',
 :display_name => "Address to listen on for HTTP traffic",
