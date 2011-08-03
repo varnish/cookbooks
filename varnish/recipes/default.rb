@@ -82,7 +82,8 @@ end
 
 storage_spec = node[:varnish][:storage_spec]
 if node[:varnish][:storage_spec] == "auto"
-  storage_spec = node[:memory_total]*0.8
+  use_mem = Integer(Integer(node[:memory][:total].scan(/\d+/)[0]) * 0.8)
+  storage_spec = "malloc,#{use_mem}k"
 end
 
 template "#{node[:varnish][:default]}" do
