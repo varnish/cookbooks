@@ -80,6 +80,11 @@ file "/etc/varnish/secret" do
   content node[:varnish][:secret]
 end
 
+storage_spec = node[:varnish][:storage_spec]
+if node[:varnish][:storage_spec] == "auto"
+  storage_spec = node[:memory_total]*0.8
+end
+
 template "#{node[:varnish][:default]}" do
   source "varnish-sysconfig.erb"
   owner "root"
@@ -93,7 +98,7 @@ template "#{node[:varnish][:default]}" do
               :admin_port => node[:varnish][:admin_port],
               :min_threads => node[:varnish][:min_threads],
               :max_threads => node[:varnish][:max_threads],
-              :storage => node[:varnish][:storage_spec],
+              :storage => storage_spec,
               :secret_file => "/etc/varnish/secret",
               :extra_parameters => node[:varnish][:parameters]
             })

@@ -73,7 +73,7 @@ attribute 'varnish/storage_spec',
 :type => "string",
 :required => "recommended",
 :recipes => [ 'varnish::default' ],
-:default => "malloc,6G"
+:default => "auto"
 
 attribute 'varnish/secret',
 :display_name => "Authentication secret",
