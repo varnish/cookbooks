@@ -31,7 +31,7 @@ if ["centos","redhat"].include?(node[:platform])
         group "root"
         mode "0644"
         variables (:version => node[:varnish][:version],
-                   :el_version => "el#{node[:platform_version].split(".").first )
+                   :el_version => "el#{node[:platform_version].split(".").first}" )
         action :nothing
       end
   b = yum_package "varnish" do
