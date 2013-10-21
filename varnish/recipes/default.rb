@@ -19,32 +19,27 @@
 # limitations under the License.
 #
 
-if ["centos"].include?(node[:platform])
-  s = "http://repo.varnish-cache.org/redhat" + 
-    case node[:varnish][:version]
-    when "2.1" then "/varnish-2.1/el5/noarch/varnish-release-2.1-2.noarch.rpm"
-    when "3.0" then "/varnish-3.0/el5/noarch/varnish-release-3.0-1.noarch.rpm"
-    end
-  p = "/var/cache/chef/varnish-release.noarch.rpm"
-
+if ["centos","redhat"].include?(node[:platform])
+  
   d = directory "/var/cache/chef"
   d.run_action(:create)
-
-  a = remote_file p do
-    source s
-  end
-
-  b = package "varnish-release" do
-    provider Chef::Provider::Package::Rpm
-    options "--nosignature"
-    source p
-  end
-
-  c = package "varnish"
-
+  
+  a = template "/etc/yum.repos.d/varnish.repo" do
+        cookbook "varnish"
+        source "varnish.repo.erb" 
+        owner "root"
+        group "root"
+        mode "0644"
+        variables (:version => node[:varnish][:version],
+                   :el_version => "el#{node[:platform_version].split(".").first )
+        action :nothing
+      end
+  b = yum_package "varnish" do
+        flush_cache[:before]
+        action :nothing
+      end  
   a.run_action(:create)
   b.run_action(:install)
-  c.run_action(:upgrade)
 
 elsif ["debian", "ubuntu"].include?(node[:platform])
 
