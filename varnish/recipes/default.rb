@@ -30,7 +30,7 @@ if ["centos","redhat"].include?(node[:platform])
         owner "root"
         group "root"
         mode "0644"
-        variables (:version => node[:varnish][:version],
+        variables (:version => "varnish-#{node[:varnish][:version]}",
                    :el_version => "el#{node[:platform_version].split(".").first}" )
         action :nothing
       end
