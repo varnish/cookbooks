@@ -102,7 +102,7 @@ template "#{node[:varnish][:default]}" do
 end
 
 if not node[:varnish][:remote_vcl].empty?
-  remote_file "#{node[:varnish][:dir]}/default.vcl" do
+  cookbook_file "#{node[:varnish][:dir]}/default.vcl" do
     source node[:varnish][:remote_vcl]
     owner "root"
     group "root"
