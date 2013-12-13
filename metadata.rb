@@ -1,8 +1,9 @@
+name              "varnish"
 maintainer        "Varnish Software"
 maintainer_email  "tfheen@varnish-software.com"
 license           "Apache 2.0"
 description       "Installs and configures varnish"
-version           "0.8"
+version           "0.8.1"
 
 %w{ubuntu debian centos redhat}.each do |os|
   supports os
@@ -10,6 +11,9 @@ end
 
 provides "varnish::default"
 recipe "varnish::default", "Install and configure Varnish Cache"
+recipe "varnish::stop", "stops varnish"
+recipe "varnish::start", "starts varnish"
+recipe "varnish::restart", "restarts varnish"
 
 attribute 'varnish/version',
 :display_name => "Varnish version",
